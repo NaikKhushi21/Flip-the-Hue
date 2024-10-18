@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test10;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test9;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test8;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/FlipTheHue;/Users/jijiyagao/Desktop/Create With Code/FinalOne/FinalTest;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test6;;;;\"}"
+                "value": "{\"m_Value\":\"/Users/Andre/Desktop/Hue_Crew_Webgl /Hue_WebGL;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test10;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test9;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test8;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/FlipTheHue;/Users/jijiyagao/Desktop/Create With Code/FinalOne/FinalTest;/Users/jijiyagao/Desktop/Create With Code/TestBuildForProject1/Test6;;;\"}"
             }
         ]
     }
