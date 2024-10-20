@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class BackgroundColorSwapper : MonoBehaviour
 {
-    public GameObject sprite1; 
-    public GameObject sprite2; 
+    public GameObject background;
     public GameObject[] blackObstacles; 
     public GameObject[] whiteObstacles; 
 
     private SpriteRenderer spriteRenderer1;
-    private SpriteRenderer spriteRenderer2;
 
     void Start()
     {
-        if (sprite1 != null && sprite2 != null)
+        if (background != null)
         {
-            spriteRenderer1 = sprite1.GetComponent<SpriteRenderer>();
-            spriteRenderer2 = sprite2.GetComponent<SpriteRenderer>();
+            spriteRenderer1 = background.GetComponent<SpriteRenderer>();
+            spriteRenderer1.color = Color.white;
         }
         else
         {
@@ -37,11 +35,15 @@ public class BackgroundColorSwapper : MonoBehaviour
 
     void SwapColors()
     {
-        if (spriteRenderer1 != null && spriteRenderer2 != null)
+        if (spriteRenderer1 != null)
         {
-            Color tempColor = spriteRenderer1.color;
-            spriteRenderer1.color = spriteRenderer2.color;
-            spriteRenderer2.color = tempColor;
+            if(spriteRenderer1.color == Color.white) {
+                spriteRenderer1.color = Color.black;
+            }
+            else
+            {
+                spriteRenderer1.color = Color.white;
+            }
 
             UpdateObstacleColliders();
         }
@@ -49,7 +51,7 @@ public class BackgroundColorSwapper : MonoBehaviour
 
     void UpdateObstacleColliders()
     {
-        bool isBackgroundBlack = (spriteRenderer1.color == Color.black);
+        bool isBackgroundBlack = IsBackgroundBlack();
 
         foreach (GameObject obstacle in blackObstacles)
         {
