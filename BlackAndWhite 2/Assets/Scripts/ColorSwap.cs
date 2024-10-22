@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class BackgroundColorSwapper : MonoBehaviour
 {
     public GameObject background;
     public GameObject[] blackObstacles; 
     public GameObject[] whiteObstacles; 
+
+    public TextMeshProUGUI levelText;
 
     private SpriteRenderer spriteRenderer1;
 
@@ -23,6 +26,7 @@ public class BackgroundColorSwapper : MonoBehaviour
         }
 
         UpdateObstacleColliders();
+        UpdateTextColor();
     }
 
     void Update()
@@ -46,6 +50,7 @@ public class BackgroundColorSwapper : MonoBehaviour
             }
 
             UpdateObstacleColliders();
+            UpdateTextColor();
         }
     }
 
@@ -79,5 +84,17 @@ public class BackgroundColorSwapper : MonoBehaviour
             return spriteRenderer1.color == Color.black;
         }
         return false;
+    }
+
+    void UpdateTextColor()
+    {
+        Color textColor = IsBackgroundBlack() ? Color.white : Color.black;
+
+
+        if (levelText != null)
+        {
+            levelText.color = textColor;
+        }
+
     }
 }
