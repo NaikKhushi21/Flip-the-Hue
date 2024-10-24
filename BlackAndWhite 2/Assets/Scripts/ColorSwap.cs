@@ -79,30 +79,76 @@ public class BackgroundColorSwapper : MonoBehaviour
         }
     }
 
+
+    // void UpdateObstacleColliders()
+    // {
+    //     bool isBackgroundBlack = IsBackgroundBlack();
+
+    //     foreach (GameObject obstacle in blackObstacles)
+    //     {
+    //         if (obstacle != null) // Check if the obstacle is not null
+    //         {
+    //             Collider2D collider = obstacle.GetComponent<Collider2D>();
+    //             if (collider != null)
+    //             {
+    //                 collider.enabled = !isBackgroundBlack;
+    //             }
+    //         }
+    //     }
+
+    //     foreach (GameObject obstacle in whiteObstacles)
+    //     {
+    //         if (obstacle != null) // Check if the obstacle is not null
+    //         {
+    //             Collider2D collider = obstacle.GetComponent<Collider2D>();
+    //             if (collider != null)
+    //             {
+    //                 collider.enabled = isBackgroundBlack;
+    //             }
+    //         }
+    //     }
+    // }
+
     void UpdateObstacleColliders()
     {
-        bool isBackgroundBlack = IsBackgroundBlack();
+        bool isBackgroundBlack = IsBackgroundBlack();  // 检查当前背景颜色
 
+        // 更新黑色障碍物的渲染器和碰撞体
         foreach (GameObject obstacle in blackObstacles)
         {
-            if (obstacle != null) // Check if the obstacle is not null
+            if (obstacle != null) 
             {
+                // 获取渲染器和碰撞体
+                SpriteRenderer sr = obstacle.GetComponent<SpriteRenderer>();
                 Collider2D collider = obstacle.GetComponent<Collider2D>();
+
+                // 根据背景颜色启用/禁用渲染器和碰撞体
+                if (sr != null)
+                {
+                    sr.enabled = !isBackgroundBlack;  // 仅当背景为黑色时显示
+                }
                 if (collider != null)
                 {
-                    collider.enabled = !isBackgroundBlack;
+                    collider.enabled = !isBackgroundBlack;  // 仅当背景为黑色时启用碰撞
                 }
             }
         }
 
+        // 更新白色障碍物的渲染器和碰撞体
         foreach (GameObject obstacle in whiteObstacles)
         {
-            if (obstacle != null) // Check if the obstacle is not null
+            if (obstacle != null) 
             {
+                SpriteRenderer sr = obstacle.GetComponent<SpriteRenderer>();
                 Collider2D collider = obstacle.GetComponent<Collider2D>();
+
+                if (sr != null)
+                {
+                    sr.enabled = isBackgroundBlack;  // 仅当背景为白色时显示
+                }
                 if (collider != null)
                 {
-                    collider.enabled = isBackgroundBlack;
+                    collider.enabled = isBackgroundBlack;  // 仅当背景为白色时启用碰撞
                 }
             }
         }
