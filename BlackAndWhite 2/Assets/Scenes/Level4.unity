@@ -492,14 +492,14 @@ RectTransform:
   m_GameObject: {fileID: 192606181}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 725906878}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1700, y: 900}
+  m_AnchoredPosition: {x: -617, y: 310}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &192606183
@@ -1279,6 +1279,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3837548811960456355, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 199.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837548811960456355, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1423
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837548811960456355, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 822
+      objectReference: {fileID: 0}
     - target: {fileID: 4275981299659660331, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1292,7 +1304,8 @@ PrefabInstance:
       value: RestartLevel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7438111236560535112, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3121329896601828674, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
       insertIndex: 0
