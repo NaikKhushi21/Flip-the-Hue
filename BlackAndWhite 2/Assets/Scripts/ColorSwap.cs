@@ -50,6 +50,7 @@ public class BackgroundColorSwapper : MonoBehaviour
         {
             if (swapCount < maxSwaps)
             {
+                MetricManager.instance.AddToMetric1(1);
                 SwapColors();
                 swapCount++;
                 UpdateFlipsLeftUI();

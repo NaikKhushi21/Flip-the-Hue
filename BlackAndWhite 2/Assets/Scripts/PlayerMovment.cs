@@ -45,6 +45,7 @@ public class PlayerController : MonoBehaviour
         // Jumping
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || canJumpFromObstacle))
         {
+            MetricManager.instance.AddToMetric2(1);
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             if (canJumpFromObstacle && !isGrounded)
             {
@@ -152,6 +153,8 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = Vector2.zero;  // Stop the player's movement immediately
         transform.position = originalPosition;
+        MetricManager.instance.AddToResets(1);
+        MetricManager.instance.AddToTrapResets(1);
     }
  
     public void SetJumpAllowed(bool allowed)
@@ -168,6 +171,7 @@ public class PlayerController : MonoBehaviour
         // Check if the next scene index is within the bounds of your scenes
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+            MetricManager.instance.NextLevel(nextSceneIndex+1);
             SceneManager.LoadScene(nextSceneIndex);
         }
         else
