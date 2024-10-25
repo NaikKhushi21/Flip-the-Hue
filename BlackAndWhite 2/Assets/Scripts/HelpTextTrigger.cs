@@ -39,14 +39,13 @@ public class HelpTextTrigger : MonoBehaviour
     {
         if (currentHelpText != null)
         {
-            currentHelpText.SetAct
+            currentHelpText.SetActive(false);
+            StopAllCoroutines();  
         }
 
-        
         helpText.SetActive(true);
         currentHelpText = helpText;
 
-        
         StartCoroutine(HideAfterDelay());
     }
 
@@ -63,13 +62,12 @@ public class HelpTextTrigger : MonoBehaviour
             helpText.SetActive(false);
         }
 
-        if (currentHelpText == helpText)
+         if (currentHelpText == helpText)
         {
             currentHelpText = null;
         }
     }
 
-  
     public static void ResetCurrentHelpText()
     {
         if (currentHelpText != null)
