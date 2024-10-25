@@ -20,7 +20,10 @@ public class LevelManager : MonoBehaviour
     {
         // Get the active scene and reload it
         Scene currentScene = SceneManager.GetActiveScene();
-        MetricManager.instance.AddToResets(1);
+        if (MetricManager.instance != null)
+        {
+            MetricManager.instance.AddToResets(1);
+        }
         SceneManager.LoadScene(currentScene.name);
     }
 
