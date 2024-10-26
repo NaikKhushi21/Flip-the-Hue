@@ -156,7 +156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 119}
+  m_AnchoredPosition: {x: 0, y: 14}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &12690784
@@ -206,14 +206,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 45
+  m_fontSizeBase: 45
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_fontStyle: 5
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -549,7 +549,7 @@ PrefabInstance:
     - target: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
       propertyPath: flipsLeftText
       value: 
-      objectReference: {fileID: 842712364}
+      objectReference: {fileID: 1494780717}
     - target: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
       propertyPath: blackObstacles.Array.size
       value: 8
@@ -1201,15 +1201,19 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 4278228480
       objectReference: {fileID: 0}
+    - target: {fileID: 8944645070916368853, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7438111236560535112, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3121329896601828674, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
-      insertIndex: -1
+      insertIndex: 3
       addedObject: {fileID: 12690783}
     - targetCorrespondingSourceObject: {fileID: 3121329896601828674, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
-      insertIndex: -1
+      insertIndex: 4
       addedObject: {fileID: 1806198469}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
@@ -1516,17 +1520,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7796059195120702567, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
   m_PrefabInstance: {fileID: 822892492}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &842712364 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3901200266538262394, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
-  m_PrefabInstance: {fileID: 725906877}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &860762274
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2075,6 +2068,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
+--- !u!114 &1494780717 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9132723999546994939, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+  m_PrefabInstance: {fileID: 725906877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1641788672
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2178,7 +2182,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56, y: 92}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1806198470
@@ -2228,15 +2232,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
