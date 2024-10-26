@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;  // Import SceneManagement to load the next level
  
 public class PlayerController : MonoBehaviour
@@ -18,7 +19,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Vector3 originalPosition;
     public BackgroundColorSwapper colorSwapScript; // Reference to the BackgroundColorSwapper script
- 
+
+
+    public GameObject levelPassedText; // Reference to "Level Passed" Text
+    public Image fadeImage; // Reference to full-screen Image for fade effect
+    private float fadeDuration = 1.0f; // Duration for the fade effect
+
     void Start()
     {
         // Get the Rigidbody2D component attached to this object
@@ -30,6 +36,10 @@ public class PlayerController : MonoBehaviour
         {
             colorSwapScript = FindObjectOfType<BackgroundColorSwapper>();
         }
+
+        // Ensure text and image start inactive and transparent
+        if (levelPassedText != null) levelPassedText.SetActive(false);
+        if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0); // Fully transparent
     }
  
     void Update()
@@ -168,7 +178,8 @@ public class PlayerController : MonoBehaviour
     {
         canJumpFromObstacle = allowed;
     }
- 
+
+    /*
     private void LoadNextLevel()
     {
         // Get the current active scene index and load the next scene
@@ -189,4 +200,44 @@ public class PlayerController : MonoBehaviour
             Debug.Log("No more levels to load. This is the last level.");
         }
     }
+    */
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            StartCoroutine(LevelTransition(nextSceneIndex));
+        }
+        else
+        {
+            Debug.Log("No more levels to load. This is the last level.");
+        }
+    }
+
+    private IEnumerator LevelTransition(int nextSceneIndex)
+    {
+        // Display the "Level Passed" text
+        if (levelPassedText != null) levelPassedText.SetActive(true);
+
+        // Wait for a moment to display the message
+        yield return new WaitForSeconds(1.5f);
+
+        // Start fade to black
+        if (fadeImage != null)
+        {
+            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+            {
+                fadeImage.color = new Color(0, 0, 0, t / fadeDuration);
+                yield return null;
+            }
+            fadeImage.color = new Color(0, 0, 0, 1); // Ensure fully black at the end
+        }
+
+        // Load the next level
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+
 }
