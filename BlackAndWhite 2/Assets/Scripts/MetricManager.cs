@@ -1,41 +1,72 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.IO;
+using System;
+using System.Collections.Generic;
+using Firebase;
+using Firebase.Database;
+using Firebase.Auth;
 
-// This class encapsulates all of the metrics that need to be tracked in your game. These may range
-// from number of deaths, number of times the player uses a particular mechanic, or the total time
-// spent in a level. These are unique to your game and need to be tailored specifically to the data
-// you would like to collect. The examples below are just meant to illustrate one way to interact
-// with this script and save data.
 public class MetricManager : MonoBehaviour
 {
+    public DependencyStatus dependencyStatus;
+    public FirebaseUser user;
+    public FirebaseDatabase database;
+    public DatabaseReference databaseReference;
+
     public static MetricManager instance;
-    // You'll have more interesting metrics, and they will be better named.
     private int m_metric1;
     private int m_metric2;
-
     private int levelResets;
     private int trapResets;
-    private string metrics;
     private float levelTimer;
+
+    private List<LevelMetrics> allLevelMetrics;
 
     private void Awake()
     {
-        // Singleton setup: If an instance exists, destroy the new one
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // Prevent this object from being destroyed between scenes
-            metrics = "Here are my metrics:\n" + "Level1:\n";
+            DontDestroyOnLoad(gameObject);
+
             levelTimer = 0.0f;
             levelResets = 0;
             trapResets = 0;
             m_metric1 = 0;
             m_metric2 = 0;
+            allLevelMetrics = new List<LevelMetrics>();
         }
         else
         {
-            Destroy(gameObject);  // Ensure only one MetricManager exists
+            Destroy(gameObject);
+        }
+
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+        {
+            dependencyStatus = task.Result;
+            if (dependencyStatus == DependencyStatus.Available)
+            {
+                InitializeFirebase();
+            }
+            else
+            {
+                Debug.LogError("Could not resolve firebase dependencies: " + dependencyStatus);
+            }
+        });
+    }
+
+    private void InitializeFirebase()
+    {
+        FirebaseApp app = FirebaseApp.DefaultInstance;
+        database = FirebaseDatabase.DefaultInstance;
+        databaseReference = database.RootReference;
+
+        if (databaseReference != null)
+        {
+            Debug.Log("Firebase initialized and DatabaseReference set.");
+        }
+        else
+        {
+            Debug.LogError("DatabaseReference is null after initialization.");
         }
     }
 
@@ -44,19 +75,17 @@ public class MetricManager : MonoBehaviour
         levelTimer += Time.deltaTime;
     }
 
-    // Public method to add to Metric 1.
-    public void AddToMetric1 (int valueToAdd)
+    public void AddToMetric1(int valueToAdd)
     {
         m_metric1 += valueToAdd;
     }
 
-    // Public method to add to Metric 2.
-    public void AddToMetric2 (int valueToAdd)
+    public void AddToMetric2(int valueToAdd)
     {
         m_metric2 += valueToAdd;
     }
 
-    public void AddToResets (int valueToAdd)
+    public void AddToResets(int valueToAdd)
     {
         levelResets += valueToAdd;
     }
@@ -68,20 +97,19 @@ public class MetricManager : MonoBehaviour
 
     public void NextLevel(int levelNum)
     {
-        metrics += "Level Time: " + levelTimer.ToString() + "\n";
-        if (levelResets != 0)
+        var levelMetrics = new LevelMetrics
         {
-            metrics += "Avg Flips: " + ((float)m_metric1 / (float)levelResets).ToString() + "\n";
-            metrics += "Trap Resets: " + trapResets.ToString() + "\n";
-            metrics += "Avg Jumps: " + ((float)m_metric2 / (float)levelResets).ToString() + "\n";
-        }
-        else
-        {
-            metrics += "Avg Flips: " + ((float)m_metric1).ToString() + "\n";
-            metrics += "Trap Resets: " + trapResets.ToString() + "\n";
-            metrics += "Avg Jumps: " + ((float)m_metric2).ToString() + "\n";
-        }
-        metrics += "Level" + levelNum.ToString() + ":\n";
+            levelTime = levelTimer,
+            avgFlips = levelResets > 0 ? (float)m_metric1 / levelResets : m_metric1,
+            trapResets = trapResets,
+            avgJumps = levelResets > 0 ? (float)m_metric2 / levelResets : m_metric2
+        };
+        allLevelMetrics.Add(levelMetrics);
+
+        // Upload metrics for the completed level
+        //UploadMetricsToFirebase();
+
+        // Reset metrics for the next level
         levelTimer = 0.0f;
         levelResets = 0;
         trapResets = 0;
@@ -89,57 +117,69 @@ public class MetricManager : MonoBehaviour
         m_metric2 = 0;
     }
 
-    // Converts all metrics tracked in this script to their string representation
-    // so they look correct when printing to a file.
-    private string ConvertMetricsToStringRepresentation ()
+    private void UploadMetricsToFirebase()
     {
-        metrics += "Level Time: " + levelTimer.ToString() + "\n";
-        if (levelResets != 0)
+        if (databaseReference == null)
         {
-            metrics += "Avg Flips: " + ((float)m_metric1 / (float)levelResets).ToString() + "\n";
-            metrics += "Trap Resets: " + trapResets.ToString() + "\n";
-            metrics += "Avg Jumps: " + ((float)m_metric2 / (float)levelResets).ToString() + "\n";
+            Debug.LogError("DatabaseReference is null. Ensure Firebase is initialized before uploading metrics.");
+            return;
         }
-        else
+
+        if (allLevelMetrics.Count == 0)
         {
-            metrics += "Avg Flips: " + ((float)m_metric1).ToString() + "\n";
-            metrics += "Trap Resets: " + trapResets.ToString() + "\n";
-            metrics += "Avg Jumps: " + ((float)m_metric2).ToString() + "\n";
+            Debug.LogWarning("No metrics to upload.");
+            return;
         }
-        return metrics;
+
+        string userId = user != null ? user.UserId : "Guest_" + Guid.NewGuid().ToString();
+        string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
+
+        var dataToUpload = new Dictionary<string, object>();
+
+        for (int i = 0; i < allLevelMetrics.Count; i++)
+        {
+            var levelData = new Dictionary<string, object>
+            {
+                { "levelTime", allLevelMetrics[i].levelTime },
+                { "avgFlips", allLevelMetrics[i].avgFlips },
+                { "trapResets", allLevelMetrics[i].trapResets },
+                { "avgJumps", allLevelMetrics[i].avgJumps }
+            };
+            dataToUpload[$"Level_{i + 1}"] = levelData;
+        }
+
+        databaseReference.Child("PlayerMetrics").Child(userId).Child(sessionKey)
+            .SetValueAsync(dataToUpload).ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    Debug.Log("Metrics uploaded successfully.");
+                }
+                else
+                {
+                    Debug.LogError("Failed to upload metrics: " + task.Exception);
+                }
+            });
     }
 
-    // Uses the current date/time on this computer to create a uniquely named file,
-    // preventing files from colliding and overwriting data.
-    private string CreateUniqueFileName ()
+    private void OnApplicationQuit()
     {
-        string dateTime = System.DateTime.Now.ToString ();
-        dateTime = dateTime.Replace ("/", "_");
-        dateTime = dateTime.Replace (":", "_");
-        dateTime = dateTime.Replace (" ", "___");
-        return "YourGameName_metrics_" + dateTime + ".txt"; 
+        UploadMetricsToFirebase();
     }
 
-    // Generate the report that will be saved out to a file.
-    private void WriteMetricsToFile ()
+    public void TestUpload()
     {
-        string totalReport = "Report generated on " + System.DateTime.Now + "\n\n";
-        totalReport += "Total Report:\n";
-        totalReport += ConvertMetricsToStringRepresentation ();
-        totalReport = totalReport.Replace ("\n", System.Environment.NewLine);
-        string reportFile = CreateUniqueFileName ();
-
-        #if !UNITY_WEBPLAYER 
-        File.WriteAllText (reportFile, totalReport);
-        #endif
+        var testMetrics = new { levelTime = 120.0, avgFlips = 5, trapResets = 2, avgJumps = 10 };
+        string json = JsonUtility.ToJson(testMetrics);
+        databaseReference.Child("Metrics").Child("testUser").Child("Level1").SetRawJsonValueAsync(json);
     }
+}
 
-    // The OnApplicationQuit function is a Unity-Specific function that gets
-    // called right before your application actually exits. You can use this
-    // to save information for the next time the game starts, or in our case
-    // write the metrics out to a file.
-    private void OnApplicationQuit ()
-    {
-        WriteMetricsToFile ();
-    }
+[Serializable]
+public class LevelMetrics
+{
+    public float levelTime;
+    public float avgFlips;
+    public int trapResets;
+    public float avgJumps;
 }

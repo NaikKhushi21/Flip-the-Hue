@@ -43,6 +43,17 @@ public class PlayerController : MonoBehaviour
         if (isDashing) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
+        /*if (colorSwapScript.background)
+        {
+            if (this.gameObject.transform.position.x < colorSwapScript.background.transform.position.x - colorSwapScript.background.transform.localScale.x / 2)
+            {
+                this.gameObject.transform.position = new Vector3(colorSwapScript.background.transform.position.x - colorSwapScript.background.transform.localScale.x / 2, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+            }
+            if (this.gameObject.transform.position.x > colorSwapScript.background.transform.position.x + colorSwapScript.background.transform.localScale.x / 2)
+            {
+                this.gameObject.transform.position = new Vector3(colorSwapScript.background.transform.position.x + colorSwapScript.background.transform.localScale.x / 2, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
+            }
+        }*/
         Vector2 movement = new Vector2(moveHorizontal, 0);
         transform.Translate(movement * speed * Time.deltaTime);
 
@@ -178,6 +189,7 @@ public class PlayerController : MonoBehaviour
     private void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        MetricManager.instance.NextLevel(currentSceneIndex);
         int nextSceneIndex = currentSceneIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)

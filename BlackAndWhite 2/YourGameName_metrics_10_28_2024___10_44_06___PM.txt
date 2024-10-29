@@ -1,0 +1,9 @@
+Report generated on 10/28/2024 10:44:05 PM
+
+Total Report:
+Here are my metrics:
+Level1:
+Level Time: 27.32705
+Avg Flips: 2
+Trap Resets: 0
+Avg Jumps: 3
