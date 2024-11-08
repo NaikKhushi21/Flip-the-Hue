@@ -43,17 +43,6 @@ public class PlayerController : MonoBehaviour
         if (isDashing) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
-        /*if (colorSwapScript.background)
-        {
-            if (this.gameObject.transform.position.x < colorSwapScript.background.transform.position.x - colorSwapScript.background.transform.localScale.x / 2)
-            {
-                this.gameObject.transform.position = new Vector3(colorSwapScript.background.transform.position.x - colorSwapScript.background.transform.localScale.x / 2, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-            }
-            if (this.gameObject.transform.position.x > colorSwapScript.background.transform.position.x + colorSwapScript.background.transform.localScale.x / 2)
-            {
-                this.gameObject.transform.position = new Vector3(colorSwapScript.background.transform.position.x + colorSwapScript.background.transform.localScale.x / 2, this.gameObject.transform.position.y, this.gameObject.transform.position.z);
-            }
-        }*/
         Vector2 movement = new Vector2(moveHorizontal, 0);
         transform.Translate(movement * speed * Time.deltaTime);
 
@@ -95,11 +84,9 @@ public class PlayerController : MonoBehaviour
             float step = (dashDistance / dashTime) * Time.deltaTime;
             Vector3 nextPosition = transform.position + new Vector3(dashDirection * step, 0, 0);
 
-            // Perform a BoxCast to check for obstacles
             RaycastHit2D hit = Physics2D.BoxCast(transform.position, GetComponent<BoxCollider2D>().size, 0, new Vector2(dashDirection, 0), step);
             if (hit.collider != null && hit.collider.CompareTag("Obstacle"))
             {
-                // Stop at the obstacle
                 transform.position = new Vector3(hit.point.x - dashDirection * 0.05f, transform.position.y, transform.position.z);
                 isDashing = false;
                 yield break;
@@ -111,7 +98,6 @@ public class PlayerController : MonoBehaviour
 
         isDashing = false;
     }
-
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -127,7 +113,7 @@ public class PlayerController : MonoBehaviour
         {
             if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
             {
-                Debug.Log("Player touched Whitetrap while the background is black. Resetting position.");
+                Debug.Log("Player touched Whitetrap while the background is black. Restarting level.");
                 ResetPosition();
             }
         }
@@ -136,7 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             if (colorSwapScript != null && !colorSwapScript.IsBackgroundBlack())
             {
-                Debug.Log("Player touched Blacktrap while the background is white. Resetting position.");
+                Debug.Log("Player touched Blacktrap while the background is white. Restarting level.");
                 ResetPosition();
             }
         }
@@ -155,7 +141,7 @@ public class PlayerController : MonoBehaviour
         {
             if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
             {
-                Debug.Log("Player is staying on Whitetrap while the background is black. Resetting position.");
+                Debug.Log("Player is staying on Whitetrap while the background is black. Restarting level.");
                 ResetPosition();
             }
         }
@@ -164,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             if (colorSwapScript != null && !colorSwapScript.IsBackgroundBlack())
             {
-                Debug.Log("Player is staying on Blacktrap while the background is black. Resetting position.");
+                Debug.Log("Player is staying on Blacktrap while the background is black. Restarting level.");
                 ResetPosition();
             }
         }
@@ -172,13 +158,14 @@ public class PlayerController : MonoBehaviour
 
     private void ResetPosition()
     {
-        rb.velocity = Vector2.zero;
-        transform.position = originalPosition;
         if (MetricManager.instance != null)
         {
             MetricManager.instance.AddToResets(1);
             MetricManager.instance.AddToTrapResets(1);
         }
+
+        // Restart the level by reloading the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SetJumpAllowed(bool allowed)
@@ -222,5 +209,11 @@ public class PlayerController : MonoBehaviour
         }
 
         SceneManager.LoadScene(nextSceneIndex);
+    }
+
+    // Method to restart the level when the Restart button is clicked
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
