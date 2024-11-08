@@ -1254,6 +1254,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MetricManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7795642828905069562, guid: 1d99a1c6639f789498e9214f0af9e498, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
