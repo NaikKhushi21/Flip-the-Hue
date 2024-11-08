@@ -9,6 +9,7 @@ TagManager:
   - WhiteTrap
   - Whitetrap
   - Blacktrap
+  - Obstacle
   layers:
   - Default
   - TransparentFX
