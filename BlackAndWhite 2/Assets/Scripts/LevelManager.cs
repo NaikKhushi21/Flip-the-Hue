@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
+    // This method ensures the LevelManager persists across scenes
     void Start()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -10,12 +11,14 @@ public class LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        // Escape key will quit the game
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Quit();
         }
     }
 
+    // Restart the current level
     public void RestartLevel()
     {
         // Get the active scene and reload it
@@ -27,8 +30,16 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene(currentScene.name);
     }
 
+    // Quit the application
     public void Quit()
     {
         Application.Quit();
+    }
+
+    // Method to be called when the player hits the trap (or any other event that triggers a restart)
+    public void ReloadLevel()
+    {
+        // Reload the current scene
+        RestartLevel();
     }
 }
