@@ -5,10 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UIElements;
-//added
+
 public class BackgroundColorSwapper : MonoBehaviour
 {
-
     public GameObject background;
     public GameObject[] blackObstacles;
     public GameObject[] whiteObstacles;
@@ -17,12 +16,12 @@ public class BackgroundColorSwapper : MonoBehaviour
     private int swapCount = 0;
 
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI[] whiteBackgroundTexts;  // Array for texts visible on white background
+    public TextMeshProUGUI[] blackBackgroundTexts;  // Array for texts visible on black background
 
     private SpriteRenderer spriteRenderer1;
-
     private SpriteRenderer spriteRenderer2;
     public TextMeshProUGUI flipsLeftText;
-
 
     void Start()
     {
@@ -37,11 +36,8 @@ public class BackgroundColorSwapper : MonoBehaviour
         }
 
         UpdateObstacleColliders();
-
         UpdateTextColor();
-
         UpdateFlipsLeftUI();
-
     }
 
     void Update()
@@ -83,76 +79,42 @@ public class BackgroundColorSwapper : MonoBehaviour
         }
     }
 
-
-    // void UpdateObstacleColliders()
-    // {
-    //     bool isBackgroundBlack = IsBackgroundBlack();
-
-    //     foreach (GameObject obstacle in blackObstacles)
-    //     {
-    //         if (obstacle != null) // Check if the obstacle is not null
-    //         {
-    //             Collider2D collider = obstacle.GetComponent<Collider2D>();
-    //             if (collider != null)
-    //             {
-    //                 collider.enabled = !isBackgroundBlack;
-    //             }
-    //         }
-    //     }
-
-    //     foreach (GameObject obstacle in whiteObstacles)
-    //     {
-    //         if (obstacle != null) // Check if the obstacle is not null
-    //         {
-    //             Collider2D collider = obstacle.GetComponent<Collider2D>();
-    //             if (collider != null)
-    //             {
-    //                 collider.enabled = isBackgroundBlack;
-    //             }
-    //         }
-    //     }
-    // }
-
     void UpdateObstacleColliders()
     {
-        bool isBackgroundBlack = IsBackgroundBlack();  // 检查当前背景颜色
+        bool isBackgroundBlack = IsBackgroundBlack();  // Check the current background color
 
-        // 更新黑色障碍物的渲染器和碰撞体
         foreach (GameObject obstacle in blackObstacles)
         {
-            if (obstacle != null) 
+            if (obstacle != null)
             {
-                // 获取渲染器和碰撞体
                 SpriteRenderer sr = obstacle.GetComponent<SpriteRenderer>();
                 Collider2D collider = obstacle.GetComponent<Collider2D>();
 
-                // 根据背景颜色启用/禁用渲染器和碰撞体
                 if (sr != null)
                 {
-                    sr.enabled = !isBackgroundBlack;  // 仅当背景为黑色时显示
+                    sr.enabled = !isBackgroundBlack;
                 }
                 if (collider != null)
                 {
-                    collider.enabled = !isBackgroundBlack;  // 仅当背景为黑色时启用碰撞
+                    collider.enabled = !isBackgroundBlack;
                 }
             }
         }
 
-        // 更新白色障碍物的渲染器和碰撞体
         foreach (GameObject obstacle in whiteObstacles)
         {
-            if (obstacle != null) 
+            if (obstacle != null)
             {
                 SpriteRenderer sr = obstacle.GetComponent<SpriteRenderer>();
                 Collider2D collider = obstacle.GetComponent<Collider2D>();
 
                 if (sr != null)
                 {
-                    sr.enabled = isBackgroundBlack;  // 仅当背景为白色时显示
+                    sr.enabled = isBackgroundBlack;
                 }
                 if (collider != null)
                 {
-                    collider.enabled = isBackgroundBlack;  // 仅当背景为白色时启用碰撞
+                    collider.enabled = isBackgroundBlack;
                 }
             }
         }
@@ -180,11 +142,27 @@ public class BackgroundColorSwapper : MonoBehaviour
     {
         Color textColor = IsBackgroundBlack() ? Color.white : Color.black;
 
-
+        // Update the level text color
         if (levelText != null)
         {
             levelText.color = textColor;
         }
 
+        // Set visibility for texts depending on the background color
+        if (whiteBackgroundTexts != null)
+        {
+            foreach (TextMeshProUGUI text in whiteBackgroundTexts)
+            {
+                text.gameObject.SetActive(!IsBackgroundBlack());  // Show only if background is white
+            }
+        }
+
+        if (blackBackgroundTexts != null)
+        {
+            foreach (TextMeshProUGUI text in blackBackgroundTexts)
+            {
+                text.gameObject.SetActive(IsBackgroundBlack());  // Show only if background is black
+            }
+        }
     }
 }
