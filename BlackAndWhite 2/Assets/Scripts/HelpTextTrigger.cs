@@ -34,7 +34,7 @@ public class HelpTextTrigger : MonoBehaviour
             HideHelpText();
         }
     }
-
+    //show help text
     private void ShowHelpText()
     {
         if (currentHelpText != null)
