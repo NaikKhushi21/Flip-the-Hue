@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-//using Firebase;
-//using Firebase.Database;
-//using Firebase.Auth;
+using Firebase;
+using Firebase.Database;
+using Firebase.Auth;
 
 public class MetricManager : MonoBehaviour
 {
     public static MetricManager instance;
 
-    /* public DependencyStatus dependencyStatus;
+     public DependencyStatus dependencyStatus;
      public FirebaseUser user;
      public FirebaseDatabase database;
      public DatabaseReference databaseReference;
@@ -20,11 +20,11 @@ public class MetricManager : MonoBehaviour
      private int trapResets;
      private float levelTimer;
 
-     private List<LevelMetrics> allLevelMetrics;*/
+     private List<LevelMetrics> allLevelMetrics;
 
      private void Awake()
      {
-        /*
+        
          if (instance == null)
          {
              instance = this;
@@ -53,12 +53,12 @@ public class MetricManager : MonoBehaviour
              {
                  Debug.LogError("Could not resolve firebase dependencies: " + dependencyStatus);
              }
-         });*/
+         });
      }
 
      private void InitializeFirebase()
      {
-        /*
+        
          FirebaseApp app = FirebaseApp.DefaultInstance;
          database = FirebaseDatabase.DefaultInstance;
          databaseReference = database.RootReference;
@@ -71,39 +71,39 @@ public class MetricManager : MonoBehaviour
          {
              Debug.LogError("DatabaseReference is null after initialization.");
          }
-        */
+        
      }
 
      void Update()
      {
         
-         //levelTimer += Time.deltaTime;
+         levelTimer += Time.deltaTime;
         
      }
 
      public void AddToMetric1(int valueToAdd)
      {
-         //m_metric1 += valueToAdd;
+         m_metric1 += valueToAdd;
      }
 
      public void AddToMetric2(int valueToAdd)
      {
-         //m_metric2 += valueToAdd;
+         m_metric2 += valueToAdd;
      }
 
      public void AddToResets(int valueToAdd)
      {
-         //levelResets += valueToAdd;
+         levelResets += valueToAdd;
      }
 
      public void AddToTrapResets(int valueToAdd)
      {
-         //trapResets += valueToAdd;
+         trapResets += valueToAdd;
      }
 
      public void NextLevel(int levelNum)
      {
-        /*
+        
          var levelMetrics = new LevelMetrics
          {
              levelTime = levelTimer,
@@ -122,12 +122,12 @@ public class MetricManager : MonoBehaviour
          trapResets = 0;
          m_metric1 = 0;
          m_metric2 = 0;
-        */
+        
      }
 
      private void UploadMetricsToFirebase()
      {
-        /*
+        
          if (databaseReference == null)
          {
              Debug.LogError("DatabaseReference is null. Ensure Firebase is initialized before uploading metrics.");
@@ -169,21 +169,21 @@ public class MetricManager : MonoBehaviour
                      Debug.LogError("Failed to upload metrics: " + task.Exception);
                  }
              });
-        */
+        
      }
 
      private void OnApplicationQuit()
      {
-         //UploadMetricsToFirebase();
+         UploadMetricsToFirebase();
      }
 
      public void TestUpload()
      {
-        /*
+        
          var testMetrics = new { levelTime = 120.0, avgFlips = 5, trapResets = 2, avgJumps = 10 };
          string json = JsonUtility.ToJson(testMetrics);
          databaseReference.Child("Metrics").Child("testUser").Child("Level1").SetRawJsonValueAsync(json);
-        */
+        
      }
  }
 
