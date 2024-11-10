@@ -390,7 +390,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 2
   yOffset: 1
-  xOffset: 8
+  xOffset: 4
   target: {fileID: 813119257}
 --- !u!1001 &92647586
 PrefabInstance:
