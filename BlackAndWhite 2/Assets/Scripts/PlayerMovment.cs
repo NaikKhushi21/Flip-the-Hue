@@ -104,6 +104,39 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.tag == "Ground")
         {
             isGrounded = true;
+        } else if (collision.collider.CompareTag("Obstacle"))
+        {
+            bool isRightOnTop = false;
+            foreach (ContactPoint2D contact in collision.contacts)
+            {
+                // Check if the player is above the obstacle
+                if (contact.point.y < transform.position.y)
+                {
+                    // Get the bounds of the obstacle
+                    Bounds obstacleBounds = collision.collider.bounds;
+                    
+                    // Check if the player's horizontal position is within the obstacle's width
+                    if (transform.position.x >= obstacleBounds.min.x && transform.position.x <= obstacleBounds.max.x)
+                    {
+                        isRightOnTop = true;
+                        break;
+                    }
+                }
+            }
+
+            canJumpFromObstacle = isRightOnTop;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+        else if (collision.collider.CompareTag("Obstacle"))
+        {
+            canJumpFromObstacle = false;
         }
     }
 
