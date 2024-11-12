@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 5.0f;
     public float jumpForce = 2.0f;
-    public float dashDistance = 2.0f;
+    public float dashDistance = 5.0f;
     public float dashCooldown = 1.0f;
     public float dashTime = 0.2f;
 
@@ -101,40 +101,20 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground")
+        if (collision.collider.CompareTag("Ground"))
         {
             isGrounded = true;
         } else if (collision.collider.CompareTag("Obstacle"))
         {
-            bool isRightOnTop = false;
-            foreach (ContactPoint2D contact in collision.contacts)
-            {
-                // Check if the player is above the obstacle
-                if (contact.point.y < transform.position.y)
-                {
-                    // Get the bounds of the obstacle
-                    Bounds obstacleBounds = collision.collider.bounds;
-                    
-                    // Check if the player's horizontal position is within the obstacle's width
-                    if (transform.position.x >= obstacleBounds.min.x && transform.position.x <= obstacleBounds.max.x)
-                    {
-                        isRightOnTop = true;
-                        break;
-                    }
-                }
-            }
+           Bounds obstacleBounds = collision.collider.bounds;
 
-            canJumpFromObstacle = isRightOnTop;
+            canJumpFromObstacle = transform.position.y >= obstacleBounds.max.y;
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-        else if (collision.collider.CompareTag("Obstacle"))
+        if (collision.collider.CompareTag("Obstacle"))
         {
             canJumpFromObstacle = false;
         }
