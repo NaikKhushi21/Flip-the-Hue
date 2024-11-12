@@ -2,18 +2,23 @@ using UnityEngine;
 
 public class MovingTrap : MonoBehaviour
 {
-    public Transform pointA; 
-    public Transform pointB; 
+    public Transform pointA;
+    public Transform pointB;
     public float speed = 2f;
+    public float initialOffset = 0f;
 
-    private Vector3 targetPosition; 
-    private float initialY; 
+    private Vector3 targetPosition;
+    private float initialY;
 
     void Start()
     {
         initialY = transform.position.y;
         
-        transform.position = new Vector3(pointA.position.x, initialY, transform.position.z);
+        transform.position = new Vector3(
+            pointA.position.x + initialOffset,
+            initialY,
+            transform.position.z
+        );
         
         targetPosition = new Vector3(pointB.position.x, initialY, transform.position.z);
     }
@@ -26,7 +31,7 @@ public class MovingTrap : MonoBehaviour
             speed * Time.deltaTime
         );
 
-        if (transform.position.x == targetPosition.x)
+        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
         {
             targetPosition = targetPosition.x == pointA.position.x 
                 ? new Vector3(pointB.position.x, initialY, transform.position.z) 
