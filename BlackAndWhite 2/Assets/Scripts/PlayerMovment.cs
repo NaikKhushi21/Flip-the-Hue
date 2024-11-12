@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public GameObject levelPassedText;
     public Image fadeImage;
     private float fadeDuration = 1.0f;
+    public Text trapHitText;
+    private bool hitTrap = false;
 
     void Start()
     {
@@ -36,11 +38,15 @@ public class PlayerController : MonoBehaviour
 
         if (levelPassedText != null) levelPassedText.SetActive(false);
         if (fadeImage != null) fadeImage.color = new Color(0, 0, 0, 0);
+        if (trapHitText != null)
+        {
+            trapHitText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-        if (isDashing) return;
+        if (isDashing || hitTrap) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(moveHorizontal, 0);
@@ -123,22 +129,24 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Whitetrap")
+    {
+        if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
         {
-            if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
-            {
-                Debug.Log("Player touched Whitetrap while the background is black. Restarting level.");
-                ResetPosition();
-            }
+            Debug.Log("Player touched Whitetrap while the background is black. Stopping player.");
+            hitTrap = true;
+            StopPlayer();
         }
+    }
 
-        if (collision.gameObject.tag == "Blacktrap")
+    if (collision.gameObject.tag == "Blacktrap")
+    {
+        if (colorSwapScript != null && !colorSwapScript.IsBackgroundBlack())
         {
-            if (colorSwapScript != null && !colorSwapScript.IsBackgroundBlack())
-            {
-                Debug.Log("Player touched Blacktrap while the background is white. Restarting level.");
-                ResetPosition();
-            }
+            Debug.Log("Player touched Blacktrap while the background is white. Stopping player.");
+            hitTrap = true;
+            StopPlayer();
         }
+    }
 
         if (collision.gameObject.tag == "RedFlag")
         {
@@ -177,7 +185,19 @@ public class PlayerController : MonoBehaviour
             MetricManager.instance.AddToTrapResets(1);
         }
 
-        // Restart the level by reloading the current scene
+        if (trapHitText != null)
+        {
+            trapHitText.text = "You hit a trap! Restarting level...";
+            trapHitText.gameObject.SetActive(true);
+        }
+
+        StartCoroutine(RestartLevelWithDelay());
+    }
+
+    private IEnumerator RestartLevelWithDelay()
+    {
+        yield return new WaitForSeconds(2f); // Wait for 2 seconds before restarting
+        hitTrap = false; // Reset the hitTrap flag
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -229,4 +249,15 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    private void StopPlayer()
+{
+    rb.velocity = Vector2.zero;
+    speed = 0f;
+    if (trapHitText != null)
+    {
+        trapHitText.text = "You hit a trap! Game Over";
+        trapHitText.gameObject.SetActive(true);
+    }
+    StartCoroutine(RestartLevelWithDelay());
+}
 }
