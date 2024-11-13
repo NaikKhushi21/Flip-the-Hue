@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    public void FixedUpdate()
     {
         if (isDashing || hitTrap) return;
 
@@ -52,18 +52,25 @@ public class PlayerController : MonoBehaviour
         Vector2 movement = new Vector2(moveHorizontal, 0);
         transform.Translate(movement * speed * Time.deltaTime);
 
-        if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || canJumpFromObstacle))
+    }
+
+    private void Update()
+    {
+        if (isDashing || hitTrap) return;
+
+        float moveHorizontal = Input.GetAxis("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (MetricManager.instance != null)
+            if (isGrounded || canJumpFromObstacle)
             {
-                MetricManager.instance.AddToMetric2(1);
+                rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                if (canJumpFromObstacle && !isGrounded)
+                {
+                    canJumpFromObstacle = false;
+                }
+                isGrounded = false;
             }
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            if (canJumpFromObstacle && !isGrounded)
-            {
-                canJumpFromObstacle = false;
-            }
-            isGrounded = false;
         }
 
         if (Input.GetKeyDown(KeyCode.V) && Time.time >= lastDashTime + dashCooldown)
@@ -179,11 +186,6 @@ public class PlayerController : MonoBehaviour
 
     private void ResetPosition()
     {
-        if (MetricManager.instance != null)
-        {
-            MetricManager.instance.AddToResets(1);
-            MetricManager.instance.AddToTrapResets(1);
-        }
 
         if (trapHitText != null)
         {
@@ -198,6 +200,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(2f); // Wait for 2 seconds before restarting
         hitTrap = false; // Reset the hitTrap flag
+        if (MetricManager.instance != null)
+        {
+            MetricManager.instance.AddToResets(1);
+            MetricManager.instance.AddToTrapResets(1);
+            MetricManager.instance.AddToMetric2(this.gameObject.transform.position);
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
