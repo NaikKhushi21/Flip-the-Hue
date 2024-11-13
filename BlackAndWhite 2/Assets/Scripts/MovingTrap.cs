@@ -6,6 +6,7 @@ public class MovingTrap : MonoBehaviour
     public Transform pointB;
     public float speed = 2f;
     public float initialOffset = 0f;
+    public float bufferDistance = 0.5f; 
 
     private Vector3 targetPosition;
     private float initialY;
@@ -31,7 +32,7 @@ public class MovingTrap : MonoBehaviour
             speed * Time.deltaTime
         );
 
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        if (Vector3.Distance(transform.position, targetPosition) < bufferDistance)
         {
             targetPosition = targetPosition.x == pointA.position.x 
                 ? new Vector3(pointB.position.x, initialY, transform.position.z) 
