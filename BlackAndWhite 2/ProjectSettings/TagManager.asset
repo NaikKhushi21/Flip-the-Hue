@@ -10,6 +10,7 @@ TagManager:
   - Whitetrap
   - Blacktrap
   - Obstacle
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
