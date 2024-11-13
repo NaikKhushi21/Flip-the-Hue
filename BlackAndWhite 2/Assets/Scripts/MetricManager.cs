@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
-using Firebase;
+using System.Text;
+using UnityEngine.Networking;
+using Newtonsoft.Json;
+/*using Firebase;
 using Firebase.Database;
-using Firebase.Auth;
+using Firebase.Auth;*/
 
 public class MetricManager : MonoBehaviour
 {
     public static MetricManager instance;
 
-     public DependencyStatus dependencyStatus;
+     /*public DependencyStatus dependencyStatus;
      public FirebaseUser user;
      public FirebaseDatabase database;
-     public DatabaseReference databaseReference;
+     public DatabaseReference databaseReference;*/
 
      private int m_metric1;
      private int m_metric2;
@@ -20,9 +23,13 @@ public class MetricManager : MonoBehaviour
      private int trapResets;
      private float levelTimer;
 
+    private bool hasPushedUpload;
+
      private List<LevelMetrics> allLevelMetrics;
 
-     private void Awake()
+    private string firebaseURL = "https://flipthehue-default-rtdb.firebaseio.com/";
+
+    private void Awake()
      {
         
          if (instance == null)
@@ -36,13 +43,14 @@ public class MetricManager : MonoBehaviour
              m_metric1 = 0;
              m_metric2 = 0;
              allLevelMetrics = new List<LevelMetrics>();
+            hasPushedUpload = false;
          }
          else
          {
              Destroy(gameObject);
          }
 
-         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
+         /*FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
          {
              dependencyStatus = task.Result;
              if (dependencyStatus == DependencyStatus.Available)
@@ -53,10 +61,10 @@ public class MetricManager : MonoBehaviour
              {
                  Debug.LogError("Could not resolve firebase dependencies: " + dependencyStatus);
              }
-         });
+         });*/
      }
 
-     private void InitializeFirebase()
+     /*private void InitializeFirebase()
      {
         
          FirebaseApp app = FirebaseApp.DefaultInstance;
@@ -72,7 +80,7 @@ public class MetricManager : MonoBehaviour
              Debug.LogError("DatabaseReference is null after initialization.");
          }
         
-     }
+     }*/
 
      void Update()
      {
@@ -128,11 +136,11 @@ public class MetricManager : MonoBehaviour
      private void UploadMetricsToFirebase()
      {
         
-         if (databaseReference == null)
+         /*if (databaseReference == null)
          {
              Debug.LogError("DatabaseReference is null. Ensure Firebase is initialized before uploading metrics.");
              return;
-         }
+         }*/
 
          if (allLevelMetrics.Count == 0)
          {
@@ -140,7 +148,7 @@ public class MetricManager : MonoBehaviour
              return;
          }
 
-         string userId = user != null ? user.UserId : "Guest_" + Guid.NewGuid().ToString();
+         string userId = "NewGuest_" + Guid.NewGuid().ToString();
          string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
          var dataToUpload = new Dictionary<string, object>();
@@ -157,7 +165,12 @@ public class MetricManager : MonoBehaviour
              dataToUpload[$"Level_{i + 1}"] = levelData;
          }
 
-         databaseReference.Child("PlayerMetrics").Child(userId).Child(sessionKey)
+        string jsonUpload = JsonConvert.SerializeObject(dataToUpload);
+        string url = firebaseURL + "PlayerMetrics/" + userId + "/" + sessionKey + ".json";
+
+        StartCoroutine(PostData(url, jsonUpload));
+
+         /*databaseReference.Child("PlayerMetrics").Child(userId).Child(sessionKey)
              .SetValueAsync(dataToUpload).ContinueWith(task =>
              {
                  if (task.IsCompleted)
@@ -169,22 +182,57 @@ public class MetricManager : MonoBehaviour
                      Debug.LogError("Failed to upload metrics: " + task.Exception);
                  }
              });
-        
+        */
      }
 
-     private void OnApplicationQuit()
+    private IEnumerator<UnityWebRequestAsyncOperation> PostData(string url, string json)
+    {
+        using (UnityWebRequest request = new UnityWebRequest(url, "PUT"))
+        {
+            byte[] bodyRaw = Encoding.UTF8.GetBytes(json);
+            request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                Debug.Log("Metrics uploaded successfully.");
+            }
+            else
+            {
+                Debug.LogError("Failed to upload metrics: " + request.error);
+            }
+        }
+    }
+
+    private void OnApplicationQuit()
      {
-         UploadMetricsToFirebase();
-     }
+        if (!hasPushedUpload)
+        {
+            hasPushedUpload = true;
+            UploadMetricsToFirebase();
+        }
+    }
 
-     public void TestUpload()
+    public void PushUpload()
+    {
+        if (!hasPushedUpload)
+        {
+            hasPushedUpload = true;
+            UploadMetricsToFirebase();
+        }
+    }
+
+     /*public void TestUpload()
      {
         
          var testMetrics = new { levelTime = 120.0, avgFlips = 5, trapResets = 2, avgJumps = 10 };
          string json = JsonUtility.ToJson(testMetrics);
          databaseReference.Child("Metrics").Child("testUser").Child("Level1").SetRawJsonValueAsync(json);
         
-     }
+     }*/
  }
 
  [Serializable]

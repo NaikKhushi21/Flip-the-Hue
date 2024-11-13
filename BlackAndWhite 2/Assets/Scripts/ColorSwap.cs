@@ -140,7 +140,7 @@ public class BackgroundColorSwapper : MonoBehaviour
 
     void UpdateTextColor()
     {
-        Color textColor = IsBackgroundBlack() ? Color.white : Color.black;
+        /*Color textColor = IsBackgroundBlack() ? Color.white : Color.black;
 
         // Update the level text color
         if (levelText != null)
@@ -163,6 +163,6 @@ public class BackgroundColorSwapper : MonoBehaviour
             {
                 text.gameObject.SetActive(IsBackgroundBlack());  // Show only if background is black
             }
-        }
+        }*/
     }
 }
