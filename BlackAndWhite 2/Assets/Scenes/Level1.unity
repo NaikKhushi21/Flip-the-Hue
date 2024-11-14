@@ -714,7 +714,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -950,7 +950,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1195,7 +1195,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -1726,11 +1726,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2125086720586209109, guid: f724b890eb76f3341bcb2c92e9ac4315, type: 3}
       propertyPath: m_LocalScale.x
-      value: 180
+      value: 150.21402
       objectReference: {fileID: 0}
     - target: {fileID: 2125086720586209109, guid: f724b890eb76f3341bcb2c92e9ac4315, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06
+      value: 51.9428
       objectReference: {fileID: 0}
     - target: {fileID: 2125086720586209109, guid: f724b890eb76f3341bcb2c92e9ac4315, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -3061,7 +3061,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -3347,11 +3347,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 180
+      value: 150.21402
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 51.9929
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalPosition.y
