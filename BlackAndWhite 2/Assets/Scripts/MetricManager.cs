@@ -121,7 +121,8 @@ public class MetricManager : MonoBehaviour
              levelTime = levelTimer,
              avgFlips = levelResets > 0 ? (float)m_metric1 / levelResets : m_metric1,
              trapResets = trapResets,
-             deathPositions = deathPosCopy //instead of equals i need to copy
+             deathPositions = deathPosCopy,
+             level = levelNum
          };
          allLevelMetrics.Add(levelMetrics);
 
@@ -152,7 +153,7 @@ public class MetricManager : MonoBehaviour
              return;
          }
 
-         string userId = "Guest_" + Guid.NewGuid().ToString();
+         string userId = "Gast_" + Guid.NewGuid().ToString();
          string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
          var dataToUpload = new Dictionary<string, object>();
@@ -178,7 +179,7 @@ public class MetricManager : MonoBehaviour
                  { "trapResets", allLevelMetrics[i].trapResets },
                  { "deathPositions", deathPositionsList }
              };
-             dataToUpload[$"Level_{i + 1}"] = levelData;
+            dataToUpload[$"Level_{allLevelMetrics[i].level}"] = levelData;
          }
 
         string jsonUpload = JsonConvert.SerializeObject(dataToUpload);
@@ -258,7 +259,7 @@ public class MetricManager : MonoBehaviour
      public float avgFlips;
      public int trapResets;
      public List<SerializableVector3> deathPositions;
-    
+     public int level;
 }
 
 [Serializable]

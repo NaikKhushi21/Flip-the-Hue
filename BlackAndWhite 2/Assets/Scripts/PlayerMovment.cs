@@ -219,7 +219,7 @@ public class PlayerController : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (MetricManager.instance != null)
         {
-            MetricManager.instance.NextLevel(currentSceneIndex);
+            MetricManager.instance.NextLevel(currentSceneIndex - 1);
         }
         int nextSceneIndex = currentSceneIndex + 1;
 
