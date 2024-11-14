@@ -18,7 +18,7 @@ public class MetricManager : MonoBehaviour
      public DatabaseReference databaseReference;*/
 
      private int m_metric1;
-     private int m_metric2;
+     private List<SerializableVector3> m_metric2;
      private int levelResets;
      private int trapResets;
      private float levelTimer;
@@ -41,7 +41,7 @@ public class MetricManager : MonoBehaviour
              levelResets = 0;
              trapResets = 0;
              m_metric1 = 0;
-             m_metric2 = 0;
+             m_metric2 = new List<SerializableVector3>();
              allLevelMetrics = new List<LevelMetrics>();
             hasPushedUpload = false;
          }
@@ -94,9 +94,9 @@ public class MetricManager : MonoBehaviour
          m_metric1 += valueToAdd;
      }
 
-     public void AddToMetric2(int valueToAdd)
+     public void AddToMetric2(Vector3 valueToAdd)
      {
-         m_metric2 += valueToAdd;
+         m_metric2.Add(new SerializableVector3(valueToAdd));
      }
 
      public void AddToResets(int valueToAdd)
@@ -111,13 +111,17 @@ public class MetricManager : MonoBehaviour
 
      public void NextLevel(int levelNum)
      {
-        
+        List<SerializableVector3> deathPosCopy = new List<SerializableVector3>();
+        foreach (SerializableVector3 pos in m_metric2)
+        {
+            deathPosCopy.Add(pos);
+        }
          var levelMetrics = new LevelMetrics
          {
              levelTime = levelTimer,
              avgFlips = levelResets > 0 ? (float)m_metric1 / levelResets : m_metric1,
              trapResets = trapResets,
-             avgJumps = levelResets > 0 ? (float)m_metric2 / levelResets : m_metric2
+             deathPositions = deathPosCopy //instead of equals i need to copy
          };
          allLevelMetrics.Add(levelMetrics);
 
@@ -129,7 +133,7 @@ public class MetricManager : MonoBehaviour
          levelResets = 0;
          trapResets = 0;
          m_metric1 = 0;
-         m_metric2 = 0;
+         m_metric2.Clear();
         
      }
 
@@ -148,19 +152,31 @@ public class MetricManager : MonoBehaviour
              return;
          }
 
-         string userId = "NewGuest_" + Guid.NewGuid().ToString();
+         string userId = "Guest_" + Guid.NewGuid().ToString();
          string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
          var dataToUpload = new Dictionary<string, object>();
 
          for (int i = 0; i < allLevelMetrics.Count; i++)
          {
-             var levelData = new Dictionary<string, object>
+
+            var deathPositionsList = new List<Dictionary<string, float>>();
+            foreach (var position in allLevelMetrics[i].deathPositions)
+            {
+                deathPositionsList.Add(new Dictionary<string, float>
+            {
+                { "x", position.x },
+                { "y", position.y },
+                { "z", position.z }
+            });
+            }
+
+            var levelData = new Dictionary<string, object>
              {
                  { "levelTime", allLevelMetrics[i].levelTime },
                  { "avgFlips", allLevelMetrics[i].avgFlips },
                  { "trapResets", allLevelMetrics[i].trapResets },
-                 { "avgJumps", allLevelMetrics[i].avgJumps }
+                 { "deathPositions", deathPositionsList }
              };
              dataToUpload[$"Level_{i + 1}"] = levelData;
          }
@@ -241,6 +257,33 @@ public class MetricManager : MonoBehaviour
      public float levelTime;
      public float avgFlips;
      public int trapResets;
-     public float avgJumps;
+     public List<SerializableVector3> deathPositions;
     
+}
+
+[Serializable]
+public struct SerializableVector3
+{
+    public float x;
+    public float y;
+    public float z;
+
+    public SerializableVector3(float x, float y, float z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public SerializableVector3(Vector3 vector)
+    {
+        x = vector.x;
+        y = vector.y;
+        z = vector.z;
+    }
+
+    public Vector3 ToVector3()
+    {
+        return new Vector3(x, y, z);
+    }
 }
