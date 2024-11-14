@@ -204,7 +204,7 @@ public class PlayerController : MonoBehaviour
         {
             MetricManager.instance.AddToResets(1);
             MetricManager.instance.AddToTrapResets(1);
-            //MetricManager.instance.AddToMetric2(this.gameObject.transform.position);
+            MetricManager.instance.AddToMetric2(this.gameObject.transform.position);
         }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
