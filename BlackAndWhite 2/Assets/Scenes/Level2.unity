@@ -2869,7 +2869,7 @@ PrefabInstance:
     - target: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
       propertyPath: levelText
       value: 
-      objectReference: {fileID: 2114971792}
+      objectReference: {fileID: 0}
     - target: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
       propertyPath: background
       value: 
@@ -5900,6 +5900,9 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 7438111236560535112, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
     - {fileID: 3333038741994159313, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+    - {fileID: 2887009329540070540, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+    - {fileID: 6051672478873478380, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+    - {fileID: 4099224322780750855, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3121329896601828674, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
       insertIndex: -1
@@ -5920,17 +5923,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3121329896601828674, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
   m_PrefabInstance: {fileID: 2114971790}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2114971792 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8944645070916368853, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
-  m_PrefabInstance: {fileID: 2114971790}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &8433281849179173685
 PrefabInstance:
   m_ObjectHideFlags: 0
