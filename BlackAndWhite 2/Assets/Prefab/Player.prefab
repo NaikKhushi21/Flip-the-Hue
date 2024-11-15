@@ -106,6 +106,9 @@ MonoBehaviour:
   dashCooldown: 1
   dashTime: 0.2
   colorSwapScript: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
+  levelPassedText: {fileID: 0}
+  fadeImage: {fileID: 0}
+  trapHitText: {fileID: 0}
 --- !u!50 &3920195004395847584
 Rigidbody2D:
   serializedVersion: 4

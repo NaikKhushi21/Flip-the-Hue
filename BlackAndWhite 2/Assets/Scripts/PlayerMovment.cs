@@ -219,6 +219,7 @@ public class PlayerController : MonoBehaviour
         canJumpFromObstacle = allowed;
     }
 
+    /*
     private void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
@@ -241,7 +242,35 @@ public class PlayerController : MonoBehaviour
                 MetricManager.instance.PushUpload();
             }
         }
+    }*/
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (MetricManager.instance != null)
+        {
+            MetricManager.instance.NextLevel(currentSceneIndex - 1);
+        }
+        int nextSceneIndex = currentSceneIndex + 1;
+
+        if (levelPassedText != null) levelPassedText.SetActive(true); // Always activate levelPassedText
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            StartCoroutine(LevelTransition(nextSceneIndex));
+        }
+        else
+        {
+            Debug.Log("No more levels to load. This is the last level.");
+            if (MetricManager.instance != null)
+            {
+                MetricManager.instance.NextLevel(currentSceneIndex - 1);
+                MetricManager.instance.PushUpload();
+            }
+            
+        }
     }
+
 
     private IEnumerator LevelTransition(int nextSceneIndex)
     {
