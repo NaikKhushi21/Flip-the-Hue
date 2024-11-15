@@ -267,7 +267,7 @@ public class BackgroundColorSwapper : MonoBehaviour
 
     void UpdateTextColor()
     {
-        // Set visibility for texts depending on the background color
+        /*// Set visibility for texts depending on the background color
         if (whiteBackgroundTexts != null)
         {
             foreach (TextMeshProUGUI text in whiteBackgroundTexts)
@@ -282,6 +282,6 @@ public class BackgroundColorSwapper : MonoBehaviour
             {
                 text.gameObject.SetActive(IsBackgroundBlack());  // Show only if background is black
             }
-        }
+        }*/
     }
 }
