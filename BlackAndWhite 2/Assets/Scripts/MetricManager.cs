@@ -25,6 +25,7 @@ public class MetricManager : MonoBehaviour
      private int trapResets;
      private float levelTimer;
     private int dashMetric;
+    private int totalLevelsPlayed;
 
     private bool hasPushedUpload;
 
@@ -50,6 +51,7 @@ public class MetricManager : MonoBehaviour
             dashMetric = 0;
              allLevelMetrics = new List<LevelMetrics>();
             hasPushedUpload = false;
+            totalLevelsPlayed = 0;
          }
          else
          {
@@ -130,8 +132,21 @@ public class MetricManager : MonoBehaviour
         swapPos.Add(new SerializableVector3(valueToAdd));
     }
 
+    public void ClearLevel()
+    {
+        levelTimer = 0.0f;
+        levelResets = 0;
+        trapResets = 0;
+        m_metric1 = 0;
+        dashMetric = 0;
+        m_metric2.Clear();
+        dashPos.Clear();
+        swapPos.Clear();
+    }
+
     public void NextLevel(int levelNum)
      {
+        totalLevelsPlayed++;
         List<SerializableVector3> deathPosCopy = new List<SerializableVector3>();
         foreach (SerializableVector3 pos in m_metric2)
         {
@@ -193,10 +208,10 @@ public class MetricManager : MonoBehaviour
              return;
          }
 
-         string userId = "GuestTest_" + Guid.NewGuid().ToString();
+         string userId = "NewGuestTest_" + Guid.NewGuid().ToString();
          string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
-         var dataToUpload = new Dictionary<string, object>();
+         var dataToUpload = new List<Dictionary<string, object>>();
 
          for (int i = 0; i < allLevelMetrics.Count; i++)
          {
@@ -244,7 +259,9 @@ public class MetricManager : MonoBehaviour
                 { "dashPositions", dashPositionsList },
                 { "swapPositions", swapPositionsList }
              };
-            dataToUpload[$"Level_{allLevelMetrics[i].level}"] = levelData;
+            var levelVerData = new Dictionary<string, object>();
+            levelVerData[$"Level_{allLevelMetrics[i].level}"] = levelData;
+            dataToUpload.Add(levelVerData);
          }
 
         string jsonUpload = JsonConvert.SerializeObject(dataToUpload);
