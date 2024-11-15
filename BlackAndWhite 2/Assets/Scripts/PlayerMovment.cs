@@ -75,6 +75,11 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.V) && Time.time >= lastDashTime + dashCooldown)
         {
+            if (MetricManager.instance != null)
+            {
+                MetricManager.instance.AddToNumDashes(1);
+                MetricManager.instance.AddToDashPos(this.gameObject.transform.position);
+            }
             StartCoroutine(PerformDash(moveHorizontal));
         }
     }

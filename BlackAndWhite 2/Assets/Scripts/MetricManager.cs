@@ -19,9 +19,12 @@ public class MetricManager : MonoBehaviour
 
      private int m_metric1;
      private List<SerializableVector3> m_metric2;
-     private int levelResets;
+    private List<SerializableVector3> swapPos;
+    private List<SerializableVector3> dashPos;
+    private int levelResets;
      private int trapResets;
      private float levelTimer;
+    private int dashMetric;
 
     private bool hasPushedUpload;
 
@@ -42,6 +45,9 @@ public class MetricManager : MonoBehaviour
              trapResets = 0;
              m_metric1 = 0;
              m_metric2 = new List<SerializableVector3>();
+            swapPos = new List<SerializableVector3>();
+            dashPos = new List<SerializableVector3>();
+            dashMetric = 0;
              allLevelMetrics = new List<LevelMetrics>();
             hasPushedUpload = false;
          }
@@ -109,19 +115,50 @@ public class MetricManager : MonoBehaviour
          trapResets += valueToAdd;
      }
 
-     public void NextLevel(int levelNum)
+    public void AddToNumDashes(int valueToAdd)
+    {
+        dashMetric += valueToAdd;
+    }
+
+    public void AddToDashPos(Vector3 valueToAdd)
+    {
+        dashPos.Add(new SerializableVector3(valueToAdd));
+    }
+
+    public void AddToSwapPos(Vector3 valueToAdd)
+    {
+        swapPos.Add(new SerializableVector3(valueToAdd));
+    }
+
+    public void NextLevel(int levelNum)
      {
         List<SerializableVector3> deathPosCopy = new List<SerializableVector3>();
         foreach (SerializableVector3 pos in m_metric2)
         {
             deathPosCopy.Add(pos);
         }
-         var levelMetrics = new LevelMetrics
+
+        List<SerializableVector3> dashPosCopy = new List<SerializableVector3>();
+        foreach (SerializableVector3 pos in dashPos)
+        {
+            dashPosCopy.Add(pos);
+        }
+
+        List<SerializableVector3> swapPosCopy = new List<SerializableVector3>();
+        foreach (SerializableVector3 pos in swapPos)
+        {
+            swapPosCopy.Add(pos);
+        }
+
+        var levelMetrics = new LevelMetrics
          {
              levelTime = levelTimer,
              avgFlips = levelResets > 0 ? (float)m_metric1 / levelResets : m_metric1,
              trapResets = trapResets,
+             numDashes = levelResets > 0 ? (float)dashMetric / levelResets : dashMetric,
              deathPositions = deathPosCopy,
+             dashPositions = dashPosCopy,
+             swapPositions = swapPosCopy,
              level = levelNum
          };
          allLevelMetrics.Add(levelMetrics);
@@ -134,7 +171,10 @@ public class MetricManager : MonoBehaviour
          levelResets = 0;
          trapResets = 0;
          m_metric1 = 0;
+        dashMetric = 0;
          m_metric2.Clear();
+        dashPos.Clear();
+        swapPos.Clear();
         
      }
 
@@ -153,7 +193,7 @@ public class MetricManager : MonoBehaviour
              return;
          }
 
-         string userId = "Gast_" + Guid.NewGuid().ToString();
+         string userId = "GuestTest_" + Guid.NewGuid().ToString();
          string sessionKey = "session_" + DateTime.Now.ToString("yyyyMMddHHmmss");
 
          var dataToUpload = new Dictionary<string, object>();
@@ -172,12 +212,37 @@ public class MetricManager : MonoBehaviour
             });
             }
 
+            var dashPositionsList = new List<Dictionary<string, float>>();
+            foreach (var position in allLevelMetrics[i].dashPositions)
+            {
+                dashPositionsList.Add(new Dictionary<string, float>
+            {
+                { "x", position.x },
+                { "y", position.y },
+                { "z", position.z }
+            });
+            }
+
+            var swapPositionsList = new List<Dictionary<string, float>>();
+            foreach (var position in allLevelMetrics[i].swapPositions)
+            {
+                swapPositionsList.Add(new Dictionary<string, float>
+            {
+                { "x", position.x },
+                { "y", position.y },
+                { "z", position.z }
+            });
+            }
+
             var levelData = new Dictionary<string, object>
              {
                  { "levelTime", allLevelMetrics[i].levelTime },
                  { "avgFlips", allLevelMetrics[i].avgFlips },
                  { "trapResets", allLevelMetrics[i].trapResets },
-                 { "deathPositions", deathPositionsList }
+                { "avgDashes", allLevelMetrics[i].numDashes },
+                 { "deathPositions", deathPositionsList },
+                { "dashPositions", dashPositionsList },
+                { "swapPositions", swapPositionsList }
              };
             dataToUpload[$"Level_{allLevelMetrics[i].level}"] = levelData;
          }
@@ -258,8 +323,11 @@ public class MetricManager : MonoBehaviour
      public float levelTime;
      public float avgFlips;
      public int trapResets;
-     public List<SerializableVector3> deathPositions;
-     public int level;
+    public float numDashes;
+    public List<SerializableVector3> deathPositions;
+    public List<SerializableVector3> dashPositions;
+    public List<SerializableVector3> swapPositions;
+    public int level;
 }
 
 [Serializable]

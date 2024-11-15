@@ -202,6 +202,7 @@ public class BackgroundColorSwapper : MonoBehaviour
             if (MetricManager.instance != null)
             {
                 MetricManager.instance.AddToMetric1(1);
+                MetricManager.instance.AddToSwapPos(GameObject.FindGameObjectWithTag("Player").transform.position);
             }
             SwapColors();
         }
