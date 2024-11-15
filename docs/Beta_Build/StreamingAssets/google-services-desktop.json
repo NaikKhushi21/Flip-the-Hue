@@ -1,0 +1,31 @@
+{
+  "project_info": {
+    "project_number": "789375664061",
+    "firebase_url": "https://flipthehue-default-rtdb.firebaseio.com",
+    "project_id": "flipthehue",
+    "storage_bucket": "flipthehue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789375664061:android:750ce8709b2f8ed5f3dcd4",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.FlipTheHue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg2v1CLGL0HIM-GQwcxgR3F2Eqf0cz7Sg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      },
+	  "database_url": "https://flipthehue-default-rtdb.firebaseio.com/"
+    }
+  ],
+  "configuration_version": "1"
+}
