@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("No more levels to load. This is the last level.");
             if (MetricManager.instance != null)
             {
-                MetricManager.instance.NextLevel(currentSceneIndex - 1);
+                //MetricManager.instance.NextLevel(currentSceneIndex - 1);
                 MetricManager.instance.PushUpload();
             }
             
