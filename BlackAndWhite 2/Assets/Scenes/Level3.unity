@@ -302,7 +302,7 @@ MonoBehaviour:
   pointA: {fileID: 1035266001}
   pointB: {fileID: 876874695}
   speed: 2
-  initialOffset: 12
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1001 &60612882
 PrefabInstance:
@@ -661,7 +661,7 @@ MonoBehaviour:
   pointA: {fileID: 1035266001}
   pointB: {fileID: 876874695}
   speed: 2
-  initialOffset: 12
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1 &136510317 stripped
 GameObject:
@@ -1175,7 +1175,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 3
-  initialOffset: 4
+  initialOffset: 12
   bufferDistance: 2
 --- !u!1001 &276581193
 PrefabInstance:
@@ -1397,7 +1397,7 @@ MonoBehaviour:
   pointA: {fileID: 1619194539}
   pointB: {fileID: 1799476357}
   speed: 3
-  initialOffset: 4
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1001 &343881973
 PrefabInstance:
@@ -3193,6 +3193,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 491744305}
     m_Modifications:
+    - target: {fileID: 6347938654408542993, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6696671257413654929, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -3263,7 +3267,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7796059195120702567, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1327003318}
+      addedObject: {fileID: 1327003322}
   m_SourcePrefab: {fileID: 100100000, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
 --- !u!4 &939011691 stripped
 Transform:
@@ -3524,7 +3528,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 2
-  initialOffset: 8
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1 &981986783 stripped
 GameObject:
@@ -4735,7 +4739,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8146978627719742424, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
   m_PrefabInstance: {fileID: 897905488}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1327003318
+--- !u!114 &1327003322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5207,7 +5211,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 1.5
-  initialOffset: 8
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1001 &1390368270
 PrefabInstance:
@@ -5475,7 +5479,7 @@ MonoBehaviour:
   pointA: {fileID: 1619194539}
   pointB: {fileID: 1799476357}
   speed: 3
-  initialOffset: 16
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1001 &1446765346
 PrefabInstance:
@@ -5787,7 +5791,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 1.5
-  initialOffset: 16
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1 &1594306745
 GameObject:
@@ -6308,7 +6312,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 3
-  initialOffset: 4
+  initialOffset: 6
   bufferDistance: 2
 --- !u!1 &1704178627 stripped
 GameObject:
@@ -6320,6 +6324,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
   m_PrefabInstance: {fileID: 2038253054}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1704178632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1704178627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1297341533841d6acabaa29a50fef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1363287153}
+  pointB: {fileID: 1904081956}
+  speed: 3
+  initialOffset: 0
+  bufferDistance: 2
 --- !u!4 &1728983169 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
@@ -6377,7 +6398,7 @@ MonoBehaviour:
   pointA: {fileID: 1619194539}
   pointB: {fileID: 1799476357}
   speed: 3
-  initialOffset: 16
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1 &1794966149 stripped
 GameObject:
@@ -7009,7 +7030,7 @@ MonoBehaviour:
   pointA: {fileID: 1363287153}
   pointB: {fileID: 1904081956}
   speed: 2
-  initialOffset: 16
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1 &2003814969
 GameObject:
@@ -7953,7 +7974,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 933416760875748757, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1704178632}
   m_SourcePrefab: {fileID: 100100000, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
 --- !u!1001 &2086895552
 PrefabInstance:
@@ -8216,7 +8240,7 @@ MonoBehaviour:
   pointA: {fileID: 1619194539}
   pointB: {fileID: 1799476357}
   speed: 3
-  initialOffset: 4
+  initialOffset: 0
   bufferDistance: 0.5
 --- !u!1001 &7226497248480864899
 PrefabInstance:
