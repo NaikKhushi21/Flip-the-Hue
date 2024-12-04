@@ -51,9 +51,8 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
+
         
-
-
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (isDashing || hitTrap) return;
 
         float moveHorizontal = Input.GetAxis("Horizontal");
-        
+
         Vector2 movement = new Vector2(moveHorizontal, 0);
         transform.Translate(movement * speed * Time.deltaTime);
 
@@ -70,6 +69,7 @@ public class PlayerController : MonoBehaviour
             if (isGrounded || canJumpFromObstacle)
             {
                 rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                this.gameObject.GetComponent<AudioSource>().Play();
                 if (canJumpFromObstacle && !isGrounded)
                 {
                     canJumpFromObstacle = false;
@@ -153,7 +153,9 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player touched Whitetrap while the background is black. Stopping player.");
             hitTrap = true;
-            StopPlayer();
+                collision.gameObject.GetComponent<AudioSource>().Play();
+
+                StopPlayer();
         }
     }
 
@@ -163,6 +165,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Player touched Blacktrap while the background is white. Stopping player.");
             hitTrap = true;
+                collision.gameObject.GetComponent<AudioSource>().Play();
             StopPlayer();
         }
     }
@@ -171,6 +174,7 @@ public class PlayerController : MonoBehaviour
         {
             speed = 0f;
             rb.velocity = Vector2.zero;
+            collision.gameObject.GetComponent<AudioSource>().Play();
             LoadNextLevel();
         }
     
@@ -179,6 +183,7 @@ public class PlayerController : MonoBehaviour
             if(CurrentCheckpoint == null || CurrentCheckpoint.transform.position.x < collision.gameObject.transform.position.x)
             {
                 CurrentCheckpoint = collision.gameObject;
+                CurrentCheckpoint.GetComponent<AudioSource>().Play();
             }
         }
 

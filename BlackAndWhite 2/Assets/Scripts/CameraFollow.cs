@@ -18,6 +18,11 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
+        
+    }
+
+    private void LateUpdate()
+    {
         Vector3 newPos = new Vector3(target.position.x + xOffset, fixedY, -10f);
         transform.position = Vector3.Slerp(transform.position, newPos, FollowSpeed * Time.deltaTime);
     }
