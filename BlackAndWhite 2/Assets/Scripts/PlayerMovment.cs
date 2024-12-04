@@ -26,11 +26,15 @@ public class PlayerController : MonoBehaviour
     public Text trapHitText;
     private bool hitTrap = false;
 
+    private GameObject CurrentCheckpoint;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         originalPosition = transform.position;
+
+        CurrentCheckpoint = null;
 
         if (colorSwapScript == null)
         {
@@ -169,10 +173,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.zero;
             LoadNextLevel();
         }
-    }
+    
+        if(collision.gameObject.tag == "Checkpoint")
+        {
+            if(CurrentCheckpoint == null || CurrentCheckpoint.transform.position.x < collision.gameObject.transform.position.x)
+            {
+                CurrentCheckpoint = collision.gameObject;
+            }
+        }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
         if (collision.gameObject.tag == "Whitetrap")
         {
             if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
@@ -192,16 +201,28 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+    }
+
     private void ResetPosition()
     {
-
-        if (trapHitText != null)
+        if (CurrentCheckpoint != null)
+        {
+            trapHitText.text = "You hit a trap! Restarting from checkpoint...";
+        }
+        else
         {
             trapHitText.text = "You hit a trap! Restarting level...";
-            trapHitText.gameObject.SetActive(true);
         }
+            if (trapHitText != null)
+            {
+                trapHitText.gameObject.SetActive(true);
+            }
 
-        StartCoroutine(RestartLevelWithDelay());
+            StartCoroutine(RestartLevelWithDelay());
+        
     }
 
     private IEnumerator RestartLevelWithDelay()
@@ -214,7 +235,26 @@ public class PlayerController : MonoBehaviour
             MetricManager.instance.AddToTrapResets(1);
             MetricManager.instance.AddToMetric2(this.gameObject.transform.position);
         }
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        if (CurrentCheckpoint != null)
+        {
+            this.gameObject.transform.SetPositionAndRotation(CurrentCheckpoint.transform.position, CurrentCheckpoint.transform.rotation);
+            if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
+            {
+                colorSwapScript.SwapColors();
+            }
+            speed = 5.0f;
+            trapHitText.text = "";
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+    }
+
+    public void RestartFromCheckpoint()
+    {
+
     }
 
     public void SetJumpAllowed(bool allowed)
@@ -297,6 +337,10 @@ public class PlayerController : MonoBehaviour
     // Method to restart the level when the Restart button is clicked
     public void RestartLevel()
     {
+        if (MetricManager.instance != null)
+        {
+            MetricManager.instance.AddToResets(1);
+        }
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     private void StopPlayer()

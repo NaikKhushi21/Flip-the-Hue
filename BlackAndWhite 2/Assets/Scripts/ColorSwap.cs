@@ -197,6 +197,7 @@ public class BackgroundColorSwapper : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Is the sprite active: " + spriteRenderer1 == null);
         if (Input.GetKeyDown(KeyCode.C) || Input.GetKeyDown(KeyCode.J))
         {
             if (MetricManager.instance != null)
@@ -208,7 +209,11 @@ public class BackgroundColorSwapper : MonoBehaviour
         }
     }
 
-    void SwapColors()
+    public SpriteRenderer GetSpriteRenderer()
+    {
+        return spriteRenderer1;
+    }
+    public void SwapColors()
     {
         if (spriteRenderer1 != null)
         {
