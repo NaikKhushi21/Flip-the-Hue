@@ -2593,6 +2593,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1591112841
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -2807,6 +2811,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 678755709
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -3847,6 +3855,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6347938654408542993, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 6696671257413654929, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -5557,6 +5569,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 678755709
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -6736,6 +6752,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 678755709
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -6907,6 +6927,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 1591112841
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
@@ -6993,6 +7017,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3920195004395847584, guid: 8ed854d203d66324bbc986359ee50b2b, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3989514031146813168, guid: 8ed854d203d66324bbc986359ee50b2b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -49.300003
@@ -7729,6 +7757,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4448244491107246887, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6347938654408542993, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 6696671257413654929, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       propertyPath: m_SortingLayer
       value: 2
@@ -7832,6 +7868,10 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: 678755709
       objectReference: {fileID: 0}
+    - target: {fileID: 3758043932861736335, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 4bcc14cff88c14e98add24171dc95a60, type: 2}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
