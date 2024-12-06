@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
     public GameObject levelPassedText;
     public Image fadeImage;
     private float fadeDuration = 1.0f;
-    public Text trapHitText;
+    public TextMeshProUGUI trapHitText;
     private bool hitTrap = false;
 
     private GameObject CurrentCheckpoint;
@@ -219,7 +220,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            trapHitText.text = "You hit a trap! Restarting level...";
+            trapHitText.text = "Oops! Hit the trap! Respawning...";
         }
             if (trapHitText != null)
             {
