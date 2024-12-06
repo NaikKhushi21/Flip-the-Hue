@@ -6045,6 +6045,10 @@ PrefabInstance:
       value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 4948942097414501438, guid: 8ed854d203d66324bbc986359ee50b2b, type: 3}
+      propertyPath: colorSwapScript
+      value: 
+      objectReference: {fileID: 2028250570}
+    - target: {fileID: 4948942097414501438, guid: 8ed854d203d66324bbc986359ee50b2b, type: 3}
       propertyPath: levelPassedText
       value: 
       objectReference: {fileID: 1594306745}
@@ -12670,6 +12674,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8c29164398452140b43559f2260b53e, type: 3}
+--- !u!114 &2028250570 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2612137368331191499, guid: c8c29164398452140b43559f2260b53e, type: 3}
+  m_PrefabInstance: {fileID: 2028250569}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73e9c55e98c2e4e28820c8147f0c984b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2028366035
 PrefabInstance:
   m_ObjectHideFlags: 0
