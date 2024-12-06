@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1608770321646480045}
   m_Layer: 0
   m_Name: Pole
-  m_TagString: RedFlag
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
