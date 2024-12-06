@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour
             this.gameObject.transform.SetPositionAndRotation(CurrentCheckpoint.transform.position, CurrentCheckpoint.transform.rotation);
             if (colorSwapScript != null && colorSwapScript.IsBackgroundBlack())
             {
-                colorSwapScript.SwapColors();
+                //colorSwapScript.SwapColors();
             }
             speed = 5.0f;
             trapHitText.text = "";
