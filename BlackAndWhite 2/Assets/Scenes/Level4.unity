@@ -7179,7 +7179,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.47
+      value: 11.15
       objectReference: {fileID: 0}
     - target: {fileID: 4283160305018617046, guid: 7a520ba9e1e66784ca92e3c279a9fbd3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10888,7 +10888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8146978627719742424, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.53
+      value: 11.15
       objectReference: {fileID: 0}
     - target: {fileID: 8146978627719742424, guid: 4d8b6b939ae38dc40b8247bc53e08252, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12003,6 +12003,10 @@ PrefabInstance:
     - target: {fileID: 3912606242751915649, guid: 14ab949e20307404eaa9e4e90361dcdd, type: 3}
       propertyPath: m_Name
       value: WhiteTrap (64)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3912606242751915649, guid: 14ab949e20307404eaa9e4e90361dcdd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6974171812135100472, guid: 14ab949e20307404eaa9e4e90361dcdd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15984,11 +15988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5898212250710726655, guid: a35c6e776f55fa542a3b4b9ca101cd7e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1
+      value: 150.5
       objectReference: {fileID: 0}
     - target: {fileID: 5898212250710726655, guid: a35c6e776f55fa542a3b4b9ca101cd7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5
+      value: 2.8
       objectReference: {fileID: 0}
     - target: {fileID: 5898212250710726655, guid: a35c6e776f55fa542a3b4b9ca101cd7e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16505,15 +16509,15 @@ MonoBehaviour:
     m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 50
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You hit a trap! Restarting level...
+  m_Text: You hit a trap! Respawning......
 --- !u!222 &921344268
 CanvasRenderer:
   m_ObjectHideFlags: 0
