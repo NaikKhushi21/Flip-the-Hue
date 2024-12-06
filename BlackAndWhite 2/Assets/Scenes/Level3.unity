@@ -1477,7 +1477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5898212250710726655, guid: a35c6e776f55fa542a3b4b9ca101cd7e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.91
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 5898212250710726655, guid: a35c6e776f55fa542a3b4b9ca101cd7e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8017,11 +8017,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalScale.x
-      value: 164.044
+      value: 171
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 22.0196
+      value: 25.5
       objectReference: {fileID: 0}
     - target: {fileID: 6345949496057813372, guid: 35d5a0e95d133f942a4318961ff62cc6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8298,6 +8298,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 465380682287113472, guid: 5f2989f03827f47af8cb074c743910f5, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5208767647818787259, guid: 5f2989f03827f47af8cb074c743910f5, type: 3}
       propertyPath: m_Size.x
       value: 8.608376
@@ -13581,6 +13585,10 @@ PrefabInstance:
     - target: {fileID: 5946715225083412001, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
       propertyPath: m_fontSizeBase
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6105452509847161076, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
+      propertyPath: m_Text
+      value: You hit a trap! Respawning...
       objectReference: {fileID: 0}
     - target: {fileID: 8187039306936979016, guid: 2c19a3f5619b4824b9ebcbaa18ec3645, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
